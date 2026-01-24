@@ -1,15 +1,13 @@
 import { Router } from "express"
-import {UserModel} from "../dao/models/users.model.js"
+import UsersController from "../controllers/users.controller.js"
 
 const router = Router()
 
-router.get("/", async (req, res) => {
-    try {
-        const users = await UserModel.find().populate("pets")
-        res.send({ status: "success", payload: users })
-    } catch (error) {
-        res.status(500).send({ status: "error", error })
-    }
-})
+router.get("/", UsersController.getAll)
+router.get("/:uid", UsersController.getById)
+router.post("/", UsersController.create)
+router.put("/:uid", UsersController.update)
+router.delete("/:uid", UsersController.delete)
+router.post("/:uid/pets/:pid", UsersController.addPet)
 
 export default router

@@ -1,31 +1,21 @@
 import Mocking from "../utils/Mocking.js"
-import UsersService from "./users.service.js"
-import PetsService from "./pets.service.js"
+import UsersRepository from "../repositories/users.repository.js"
+import PetsRepository from "../repositories/pets.repository.js"
 
 export default class MockingService {
-    constructor() {
-        this.usersService = new UsersService()
-        this.petsService = new PetsService()
-    }
 
-    generateMockUsers(amount) {
-        return Mocking.generateUsers(amount)
-    }
-
-    generateMockPets(amount) {
-        return Mocking.generatePets(amount)
-    }
-
-    async insertGeneratedData(usersAmount, petsAmount) {
-        const generatedUsers = Mocking.generateUsers(usersAmount)
-        const generatedPets = Mocking.generatePets(petsAmount)
-
-        const insertedUsers = await this.usersService.insertMany(generatedUsers)
-        const insertedPets = await this.petsService.insertMany(generatedPets)
-
+    static async insertGeneratedData(usersCount, petsCount) {
+        const usersToInsert = Mocking.generateUsers(usersCount)
+        const petsToInsert = Mocking.generatePets(petsCount)
+        const insertedUsers =
+            usersCount > 0 ? await UsersRepository.insertMany(usersToInsert) : []
+        const insertedPets =
+            petsCount > 0 ? await PetsRepository.insertMany(petsToInsert) : []
+        
         return {
             users: insertedUsers.length,
             pets: insertedPets.length
         }
     }
 }
+

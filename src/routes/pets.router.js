@@ -1,15 +1,12 @@
-import { Router } from "express";
-import {PetModel} from "../dao/models/pets.model.js"
+import { Router } from "express"
+import PetsController from "../controllers/pets.controller.js"
 
-const router = Router();
+const router = Router()
 
-router.get("/", async (req, res) => {
-    try {
-        const pets = await PetModel.find()
-        res.send({ status: "success", payload: pets })
-    } catch (error) {
-        res.status(500).send({ status: "error", error })
-    }
-})
+router.get("/", PetsController.getAll)
+router.get("/:pid", PetsController.getById)
+router.post("/", PetsController.create)
+router.put("/:pid", PetsController.update)
+router.delete("/:pid", PetsController.delete)
 
 export default router

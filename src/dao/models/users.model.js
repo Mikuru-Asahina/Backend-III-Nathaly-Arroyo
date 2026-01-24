@@ -50,10 +50,10 @@ const userSchema = new mongoose.Schema(
             default: null
         },
         pets: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Pet"
-        }
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Pet"
+            }
         ]
     }, 
     {

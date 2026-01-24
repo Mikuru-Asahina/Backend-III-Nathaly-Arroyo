@@ -8,6 +8,7 @@ import { connectDB } from "./config/db.js"
 import mocksRouter from "./routes/mocks.router.js"
 import usersRouter from "./routes/users.router.js"
 import petsRouter from "./routes/pets.router.js"
+import adoptionsRouter from './routes/adoption.router.js'
 
 //settings
 const app = express()
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use("/api/mocks", mocksRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/pets", petsRouter)
+app.use("/api/adoptions",adoptionsRouter)
 
 // Conexión a MongoDB
 try {
