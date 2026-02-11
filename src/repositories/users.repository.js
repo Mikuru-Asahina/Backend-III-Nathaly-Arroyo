@@ -22,10 +22,7 @@ export default class UsersRepository {
         return await dao.insertMany(users)
     }
     static async addPetToUser(userId, petId) {
-        return await dao.update(userId, {
-            $push: { pets: petId }
-        });
+        return await dao.addPet(userId, petId);
     }
 }
-
 

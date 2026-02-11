@@ -3,3 +3,5 @@ export default {
     MONGODB_URL: process.env.MONGODB_URL || null,
     JWT_SECRET: process.env.JWT_SECRET || "defaultSecret",
 }
+
+

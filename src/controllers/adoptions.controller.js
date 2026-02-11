@@ -6,7 +6,7 @@ export default class AdoptionsController {
     static async getAllAdoptions(req, res) {
         try {
             const result = await AdoptionsService.getAllAdoptions()
-            res.send({ status: "success", payload: result })
+            res.status(200).send({ status: "success", payload: result })
         } catch (error) {
             res.status(500).send({ status: "error", error: error.message })
         }
@@ -14,19 +14,36 @@ export default class AdoptionsController {
     static async getAdoption(req, res) {
         try {
             const result = await AdoptionsService.getAdoption(req.params.aid)
-            res.send({ status: "success", payload: result })
+            if (!result) {
+                return res.status(404).send({status: "error",error: "Adopción NO encontrada"})
+            }
+            res.status(200).send({ status: "success", payload: result })
         } catch (error) {
-            res.status(500).send({ status: "error", error: error.message })
+            res.status(404).send({ status: "error", error: error.message })
         }
     }
     static async createAdoption(req, res) {
         try {
             const { uid, pid } = req.params
-            const result = await AdoptionsService.createAdoption(uid, pid, UsersRepository, PetsRepository)
-            res.send({ status: "success", payload: result })
+            const result = await AdoptionsService.createAdoption(
+            uid,
+            pid,
+            UsersRepository,
+            PetsRepository
+            )
+            return res.status(200).send({ status: "success", payload: result })
         } catch (error) {
-            res.status(500).send({ status: "error", error: error.message })
+            // errores de negocio
+                if (
+                    error.message.includes("NO encontrado") ||
+                    error.message.includes("YA adoptado")
+                ) {
+                    return res.status(400).send({status: "error",error: error.message})
+                }
+                // error real
+            return res.status(500).send({status: "error",error: "Internal server error"})
         }
     }
 }
+
 

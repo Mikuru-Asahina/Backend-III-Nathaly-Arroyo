@@ -1,0 +1,103 @@
+components:
+  schema:
+    Users:
+
+      UserResponse:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de estado de la respuesta
+          data:
+            $ref: '#/components/schema/Users/User'
+
+      User:
+        type: object
+        properties:
+          _id:
+            type: string
+            description: Id del usuario
+          first_name:
+            type: string
+            description: Nombre del usuario
+          last_name:
+            type: string
+            description: Apellido del usuario
+          email:
+            type: string
+            description: Email del usuario
+          age:
+            type: number
+            description: Edad del usuario
+          role:
+            type: string
+            enum: [user, admin]
+            description: Rol del usuario
+          pets:
+            type: array
+            description: Mascotas del usuario
+            items:
+              type: string
+          cart:
+            type: string
+            nullable: true
+            description: Carrito asociado
+          createdAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
+        example:
+          _id: 64f12ab98c123456789abcd1
+          first_name: Nathaly
+          last_name: Pérez
+          email: nathaly@mail.com
+          age: 25
+          role: user
+          pets: []
+          cart: null
+          createdAt: "2026-01-10T14:22:10.123Z"
+          updatedAt: "2026-01-10T14:22:10.123Z"
+
+      UserList:
+        type: array
+        items:
+          $ref: '#/components/schema/Users/User'
+
+      Error:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de estado de la respuesta
+          message:
+            type: string
+            description: Mensaje de error
+        example:
+          message: Internal Server Error
+          status: 500
+
+      NotFound:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de estado de la respuesta
+          message:
+            type: string
+        example:
+          message: User not found / No users found
+          status: 404
+
+      BadRequest:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de estado de la respuesta
+          message:
+            type: string
+        example:
+          message: Error creating user
+          status: 400

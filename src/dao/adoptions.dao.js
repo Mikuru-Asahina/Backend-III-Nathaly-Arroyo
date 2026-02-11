@@ -8,6 +8,7 @@ export default class AdoptionsDAO {
         return await AdoptionModel.findById(id).populate("user").populate("pet").lean()
     }
     async create(data) {
-        return await AdoptionModel.create(data)
+        const doc = await AdoptionModel.create(data)
+        return doc.toObject()
     }
 }

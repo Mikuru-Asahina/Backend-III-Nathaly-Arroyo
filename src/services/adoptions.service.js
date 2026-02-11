@@ -8,19 +8,22 @@ export default class AdoptionsService {
     }
     static async getAdoption(id) {
         const adoption = await AdoptionsRepository.getById(id)
+        if (!adoption) throw new Error("Adopción NO encontrada")
         return new AdoptionsDTO(adoption)
     }
     static async createAdoption(uid, pid, usersRepo, petsRepo) {
         const user = await usersRepo.getUserById(uid)
-        if (!user) throw new Error("User not found")
+        if (!user) throw new Error("Usuario no encontrado")
         const pet = await petsRepo.getPetById(pid)
-        if (!pet) throw new Error("Pet not found")
-
-        if (pet.adopted) throw new Error("Pet already adopted")
+        if (!pet) throw new Error("Mascota no encontrada")
+        if (pet.adopted) throw new Error("Mascota YA adoptada")
+        //Actualizar mascota -marcar como adoptada en BD-
         await petsRepo.updatePet(pid, { adopted: true })
+        //Actualizar usuario -asociar mascota al usuario-
         await usersRepo.addPetToUser(uid, pid)
-        
-        const adoption = await AdoptionsRepository.create({ user: uid, pet: pid })
+        // Adoptar mascota
+        const adoption = await AdoptionsRepository.create({user: uid,pet: pid})
+        //Devolver DTO
         return new AdoptionsDTO(adoption)
     }
 }

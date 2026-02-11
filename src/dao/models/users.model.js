@@ -33,7 +33,8 @@ const userSchema = new mongoose.Schema(
         },
         password: {
             type: String,
-            required: [true, "Password is required"] 
+            required: [true, "Password is required"],
+            select: false 
         },
         orders: [{ 
             type: mongoose.Schema.Types.ObjectId, 
@@ -60,6 +61,14 @@ const userSchema = new mongoose.Schema(
         timestamps: true 
     }
 )
+
+userSchema.set("toJSON", {
+    transform: function (doc, ret) {
+        delete ret.password
+        delete ret.__v
+        return ret
+    }
+})
 
 export const UserModel = mongoose.model("User", userSchema)
 

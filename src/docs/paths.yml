@@ -1,0 +1,218 @@
+paths:
+  /api/users:
+    post:
+      tags:
+      - Users
+      summary: Registro de usuario en base de datos.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/UserInput'
+        required: true
+      responses:
+        201:
+          description: Usuario creado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/UserResponse'
+        400:
+          description: Error en los datos enviados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/BadRequest'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Error'
+
+    get:
+      tags:
+      - Users
+      summary: Lista de usuarios.
+      responses:
+        200:
+          description: Lista de usuarios.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/UserResponse'   
+        404:
+          description: No se encuentran usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/NotFound'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Error'
+
+  /api/users/{uid}:
+    get:
+      tags:
+      - Users
+      summary: Obtener usuario por id.
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          description: id del usuario
+          schema:
+            type: string
+      responses:
+        200:
+          description: Usuario encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/UserResponse'
+        400:
+          description: Id inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/BadRequest'
+        404:
+          description: No se encuentra usuario con id {uid}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/NotFound'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Error'
+
+    put:
+      tags:
+      - Users
+      summary: Editar usuario.
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          description: string id required
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/UserUpdateInput'
+        required: true
+      responses:
+        200:
+          description: Usuario actualizado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/UserResponse'
+        400:
+          description: Error en los datos enviados.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/BadRequest'
+        404:
+          description: No se encuentra usuario con id {uid}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/NotFound'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Error'
+
+    delete:
+      tags:
+      - Users
+      summary: Eliminar usuario por id.
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          description: string id required
+          schema:
+            type: string
+      responses:
+        200:
+          description: Usuario eliminado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/UserResponse'
+        400:
+          description: Id inválido.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/BadRequest'
+        404:
+          description: No se encuentra usuario con id {uid}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/NotFound'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Error'
+
+  /api/users/{uid}/pets/{pid}:
+    post:
+      tags:
+      - Users
+      summary: Asignar mascota a usuario.
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          description: id del usuario
+          schema:
+            type: string
+        - in: path
+          name: pid
+          required: true
+          description: id de la mascota
+          schema:
+            type: string
+      responses:
+        200:
+          description: Mascota agregada al usuario.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/UserResponse'
+        400:
+          description: Datos inválidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/BadRequest'
+        404:
+          description:  Usuario o mascota NO encontrados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/NotFound'
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Users/Error'
+

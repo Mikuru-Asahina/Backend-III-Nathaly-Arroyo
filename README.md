@@ -29,16 +29,19 @@ docker run -p 8080:8080 backend-pets-api
 docker pull TU_USUARIO/backend-pets-api
 docker run -p 8080:8080 TU_USUARIO/backend-pets-api
 
-📁 Estructura base
+##Tests de adopción utilizando Swagger UI
 
-src/
- ├── controllers/
- ├── services/
- ├── repositories/
- ├── dao/
- ├── dto/
- ├── models/
- ├── routes/
- ├── utils/
- └── app.js
+La documentación está disponible en: http://localhost:8080/docs
+
+A continuación se resumen las principales rutas del sistema.
+
+| Método | Ruta                        |Descripción
+| ------ | --------------------------- |---------------------------
+| POST   | /api/users                  | Crea un nuevo usuario
+| GET    | /api/users                  | Obtiene todos los usuarios
+| GET    | /api/users/{uid}            | Obtiene un usuario por id
+| PUT    | /api/users/{uid}            | Actualiza un usuario
+| DELETE | /api/users/{uid}            | Elimina un usuario
+| POST   | /api/users/{uid}/pets/{pid} | Asigna una mascota a un usuario
+
 
