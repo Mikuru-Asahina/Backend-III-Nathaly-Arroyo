@@ -1,35 +1,36 @@
-🐾 Backend Proyecto Adoptme
+# 🐾 Backend Proyecto Adoptme
 
 Este proyecto es una API Backend desarrollada con Node.js, Express y MongoDB, que implementa una arquitectura en capas:
 
-Controllers → Services → Repository → DAO → DTO → Model → MongoDB
+Controller → Service → Repository → DAO → DB
+                     ↓
+                    DTO
+
+La cual utiliza el metodo de SRP (Single Responsibility Principle) para separar responsabilidades 
 
 Incluye módulos de Users, Pets, Mocking y Adoptions, además de generación de datos falsos con Faker y encriptación de contraseñas con Bcrypt.
 
 La aplicación está preparada para ejecutarse tanto localmente como mediante Docker.
 
-🐳 Imagen en DockerHub
+## 🐳 Docker Deployment
 
-Puedes acceder a la imagen publicada en DockerHub aquí:
+Este proyecto se encuentra dockerizado y publicado en Docker Hub.
 
-https://hub.docker.com/r/TU_USUARIO/backend-pets-api
+📦 Imagen pública
 
-📦 Construir la imagen Docker
+docker pull nastarro/backend_3-api:1.0
 
-Desde la raíz del proyecto ejecuta:
+🚀 Ejecutar contenedor
 
-docker build -t backend-pets-api .
+docker run -p 8080:8080 --env-file .env nastarro/backend_3-api:1.0
 
-▶ Ejecutar el contenedor
+## ☁️ Base de Datos en la Nube
 
-docker run -p 8080:8080 backend-pets-api
+La base de datos se encuentra alojada en MongoDB Atlas, servicio cloud oficial de MongoDB.
 
-⬇ Descargar la imagen desde DockerHub
+No se utiliza MongoDB local ni contenedor adicional.
 
-docker pull TU_USUARIO/backend-pets-api
-docker run -p 8080:8080 TU_USUARIO/backend-pets-api
-
-##Tests de adopción utilizando Swagger UI
+## 📌 Tests de adopción utilizando Swagger UI
 
 La documentación está disponible en: http://localhost:8080/docs
 
