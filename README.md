@@ -20,6 +20,9 @@ Este proyecto se encuentra dockerizado y publicado en Docker Hub.
 
 docker pull nastarro/backend_3-api:1.0
 
+🔗 Repositorio en Docker Hub:
+https://hub.docker.com/r/nastarro/backend_3-api
+
 🚀 Ejecutar contenedor
 
 docker run -p 8080:8080 --env-file .env nastarro/backend_3-api:1.0
