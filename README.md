@@ -3,14 +3,24 @@
 Este proyecto es una API Backend desarrollada con Node.js, Express y MongoDB, que implementa una arquitectura en capas:
 
 Controller → Service → Repository → DAO → DB
-                     ↓
-                    DTO
+                      ↓
+                     DTO
 
-La cual utiliza el metodo de SRP (Single Responsibility Principle) para separar responsabilidades 
+Implementa el principio SRP (Single Responsibility Principle) para garantizar separación clara de responsabilidades. Por ello, cada capa cumple una responsabilidad específica siguiendo el principio de responsabilidad única (SRP).
 
 Incluye módulos de Users, Pets, Mocking y Adoptions, además de generación de datos falsos con Faker y encriptación de contraseñas con Bcrypt.
 
 La aplicación está preparada para ejecutarse tanto localmente como mediante Docker.
+
+## 🚀 Tecnologías utilizadas
+- Node.js
+- Express
+- MongoDB
+- Docker
+- Swagger
+- Faker
+- Bcrypt
+
 
 ## 🐳 Docker Deployment
 
@@ -33,9 +43,12 @@ La base de datos se encuentra alojada en MongoDB Atlas, servicio cloud oficial d
 
 No se utiliza MongoDB local ni contenedor adicional.
 
-## 📌 Tests de adopción utilizando Swagger UI
+## 📌 Tests de adopción 
 
-La documentación está disponible en: http://localhost:8080/docs
+📌 Documentación API (Swagger)
+
+La documentación interactiva está disponible en:
+http://localhost:8080/docs
 
 A continuación se resumen las principales rutas del sistema.
 
